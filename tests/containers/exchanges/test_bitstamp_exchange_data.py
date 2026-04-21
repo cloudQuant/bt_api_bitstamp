@@ -1,0 +1,15 @@
+"""Tests for BitstampExchangeData container."""
+
+from __future__ import annotations
+
+from bt_api_bitstamp.exchange_data import BitstampExchangeData
+
+
+class TestBitstampExchangeData:
+    """Tests for BitstampExchangeData."""
+
+    def test_init(self):
+        """Test initialization."""
+        exchange = BitstampExchangeData()
+
+        assert exchange.exchange_name == "BITSTAMP___SPOT"
