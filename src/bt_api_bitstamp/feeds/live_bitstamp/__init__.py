@@ -53,9 +53,9 @@ class BitstampRequestData(Feed, RequestData):
         return RateLimiter(
             rules=[
                 RateLimitRule(
-                    name="bitstamp_public", type="request_count", interval=1, limit=200, scope="ip"
+                    name="bitstamp_public", type="request_count", interval=1, limit=200, scope="ip",
                 ),
-            ]
+            ],
         )
 
     def _build_auth_headers(self, path: str, params: dict = None) -> dict:

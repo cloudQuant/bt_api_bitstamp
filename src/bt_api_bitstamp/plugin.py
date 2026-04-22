@@ -9,7 +9,7 @@ from bt_api_bitstamp.registry_registration import register_bitstamp
 
 
 def register_plugin(
-    registry: type[ExchangeRegistry], runtime_factory: type[GatewayRuntimeRegistrar]
+    registry: type[ExchangeRegistry], runtime_factory: type[GatewayRuntimeRegistrar],
 ) -> PluginInfo:
     register_bitstamp(registry)
 

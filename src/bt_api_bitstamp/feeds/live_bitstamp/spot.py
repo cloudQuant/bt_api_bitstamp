@@ -37,8 +37,8 @@ class BitstampRequestDataSpot(BitstampRequestData):
         if isinstance(input_data, dict):
             return [
                 BitstampRequestTickerData(
-                    input_data, extra_data["symbol_name"], extra_data["asset_type"], True
-                )
+                    input_data, extra_data["symbol_name"], extra_data["asset_type"], True,
+                ),
             ], True
         return [], False
 
@@ -138,7 +138,7 @@ class BitstampRequestDataSpot(BitstampRequestData):
         **kwargs,
     ):
         path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
+            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs,
         )
         return self.request(path, body=body, extra_data=extra_data)
 
@@ -153,14 +153,14 @@ class BitstampRequestDataSpot(BitstampRequestData):
         **kwargs,
     ):
         path, body, extra_data = self._make_order(
-            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
+            symbol, vol, price, order_type, client_order_id, extra_data, **kwargs,
         )
         self.submit(
-            self.async_request(path, body=body, extra_data=extra_data), callback=self.async_callback
+            self.async_request(path, body=body, extra_data=extra_data), callback=self.async_callback,
         )
 
     def _cancel_order(
-        self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs
+        self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs,
     ) -> Any:
         path = "/cancel_order/"
         body = {}
@@ -181,12 +181,12 @@ class BitstampRequestDataSpot(BitstampRequestData):
 
     def cancel_order(self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs):
         path, params, extra_data = self._cancel_order(
-            symbol, order_id, client_order_id, extra_data, **kwargs
+            symbol, order_id, client_order_id, extra_data, **kwargs,
         )
         return self.request(path, body=params, extra_data=extra_data)
 
     def _query_order(
-        self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs
+        self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs,
     ) -> Any:
         path = "/order_status/"
         body = {}
@@ -207,7 +207,7 @@ class BitstampRequestDataSpot(BitstampRequestData):
 
     def query_order(self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs):
         path, params, extra_data = self._query_order(
-            symbol, order_id, client_order_id, extra_data, **kwargs
+            symbol, order_id, client_order_id, extra_data, **kwargs,
         )
         return self.request(path, body=params, extra_data=extra_data)
 
