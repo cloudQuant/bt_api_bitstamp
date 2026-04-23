@@ -10,7 +10,10 @@ from bt_api_bitstamp.feeds.live_bitstamp.spot import BitstampRequestDataSpot
 
 
 def _bitstamp_spot_subscribe_handler(
-    data_queue: Any, exchange_params: Any, topics: Any, bt_api: Any,
+    data_queue: Any,
+    exchange_params: Any,
+    topics: Any,
+    bt_api: Any,
 ) -> None:
     topic_list = [i["topic"] for i in topics]
     bt_api.log(f"Bitstamp Spot topics requested: {topic_list}")
