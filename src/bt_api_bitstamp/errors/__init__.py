@@ -1,7 +1,9 @@
+"""Module-level docstring."""
 from bt_api_base.error import ErrorTranslator, UnifiedError, UnifiedErrorCode
 
 
 class BitstampErrorTranslator(ErrorTranslator):
+    """Class BitstampErrorTranslator"""
     ERROR_MAP = {
         "ERROR": (UnifiedErrorCode.INTERNAL_ERROR, "Generic error"),
         "DUST": (UnifiedErrorCode.INVALID_PARAMETER, "Dust quantity"),
@@ -28,6 +30,7 @@ class BitstampErrorTranslator(ErrorTranslator):
 
     @classmethod
     def translate(cls, raw_error: dict, venue: str) -> UnifiedError | None:
+        """translate method"""
         error = raw_error.get("error", raw_error)
         msg = error.get("message", error.get("reason", error.get("__all__", "")))
         status = error.get("status")

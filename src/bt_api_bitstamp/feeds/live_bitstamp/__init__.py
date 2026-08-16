@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 import base64
@@ -17,6 +18,7 @@ from bt_api_bitstamp.tickers import BitstampRequestTickerData
 
 
 class BitstampRequestData(Feed, RequestData):
+    """Class BitstampRequestData"""
     @classmethod
     def _capabilities(cls) -> set[Capability]:
         return {
@@ -35,6 +37,7 @@ class BitstampRequestData(Feed, RequestData):
         }
 
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
+        """__init__ method"""
         super().__init__(data_queue, **kwargs)
         self.public_key = kwargs.get("public_key") or kwargs.get("api_key")
         self.private_key = (
@@ -77,6 +80,7 @@ class BitstampRequestData(Feed, RequestData):
         return [], False
 
     def request(self, path, params=None, body=None, extra_data=None, timeout=10):
+        """request method"""
         if params is None:
             params = {}
         headers = self._build_auth_headers(path, params)
@@ -92,6 +96,7 @@ class BitstampRequestData(Feed, RequestData):
         )
 
     def async_request(self, path, params=None, body=None, extra_data=None, timeout=10):
+        """async_request method"""
         if params is None:
             params = {}
         headers = self._build_auth_headers(path, params)
@@ -107,4 +112,5 @@ class BitstampRequestData(Feed, RequestData):
         )
 
     def async_callback(self, response, extra_data=None):
+        """async_callback method"""
         return response

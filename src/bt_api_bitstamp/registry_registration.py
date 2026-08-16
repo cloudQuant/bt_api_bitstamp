@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from typing import Any
@@ -16,6 +17,7 @@ def _bitstamp_spot_subscribe_handler(
 
 
 def register_bitstamp(registry: type[ExchangeRegistry]) -> None:
+    """register_bitstamp function"""
     registry.register_feed("BITSTAMP___SPOT", BitstampRequestDataSpot)
     registry.register_exchange_data("BITSTAMP___SPOT", BitstampExchangeData)
     registry.register_balance_handler("BITSTAMP___SPOT", _bitstamp_balance_handler)

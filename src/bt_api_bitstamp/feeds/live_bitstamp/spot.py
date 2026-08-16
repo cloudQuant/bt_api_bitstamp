@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from typing import Any
@@ -10,7 +11,9 @@ from bt_api_bitstamp.tickers import BitstampRequestTickerData
 
 
 class BitstampRequestDataSpot(BitstampRequestData):
+    """Class BitstampRequestDataSpot"""
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
+        """__init__ method"""
         kwargs["asset_type"] = "spot"
         kwargs.setdefault("logger_name", "bitstamp_spot_feed.log")
         super().__init__(data_queue, **kwargs)
@@ -43,13 +46,16 @@ class BitstampRequestDataSpot(BitstampRequestData):
         return [], False
 
     def get_ticker(self, symbol, extra_data=None, **kwargs) -> Any:
+        """get_ticker method"""
         path, params, extra_data = self._get_ticker(symbol, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_tick(self, symbol, extra_data=None, **kwargs) -> Any:
+        """get_tick method"""
         return self.get_ticker(symbol, extra_data=extra_data, **kwargs)
 
     def async_get_ticker(self, symbol, extra_data=None, **kwargs):
+        """async_get_ticker method"""
         path, params, extra_data = self._get_ticker(symbol, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -57,9 +63,11 @@ class BitstampRequestDataSpot(BitstampRequestData):
         )
 
     def async_get_tick(self, symbol, extra_data=None, **kwargs):
+        """async_get_tick method"""
         self.async_get_ticker(symbol, extra_data=extra_data, **kwargs)
 
     def get_server_time(self, extra_data=None, **kwargs) -> Any:
+        """get_server_time method"""
         path = "/server_time_utc"
         extra_data = update_extra_data(
             extra_data,
@@ -84,13 +92,16 @@ class BitstampRequestDataSpot(BitstampRequestData):
         return path, {}, extra_data
 
     def get_balance(self, extra_data=None, **kwargs) -> Any:
+        """get_balance method"""
         path, params, extra_data = self._get_balance(extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def get_account(self, symbol=None, extra_data=None, **kwargs) -> Any:
+        """get_account method"""
         return self.get_balance(extra_data=extra_data, **kwargs)
 
     def async_get_balance(self, extra_data=None, **kwargs):
+        """async_get_balance method"""
         path, params, extra_data = self._get_balance(extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -137,6 +148,7 @@ class BitstampRequestDataSpot(BitstampRequestData):
         extra_data=None,
         **kwargs,
     ):
+        """make_order method"""
         path, body, extra_data = self._make_order(
             symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
         )
@@ -152,6 +164,7 @@ class BitstampRequestDataSpot(BitstampRequestData):
         extra_data=None,
         **kwargs,
     ):
+        """async_make_order method"""
         path, body, extra_data = self._make_order(
             symbol, vol, price, order_type, client_order_id, extra_data, **kwargs
         )
@@ -180,6 +193,7 @@ class BitstampRequestDataSpot(BitstampRequestData):
         return path, body, extra_data
 
     def cancel_order(self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs):
+        """cancel_order method"""
         path, params, extra_data = self._cancel_order(
             symbol, order_id, client_order_id, extra_data, **kwargs
         )
@@ -206,6 +220,7 @@ class BitstampRequestDataSpot(BitstampRequestData):
         return path, body, extra_data
 
     def query_order(self, symbol, order_id=None, client_order_id=None, extra_data=None, **kwargs):
+        """query_order method"""
         path, params, extra_data = self._query_order(
             symbol, order_id, client_order_id, extra_data, **kwargs
         )
@@ -226,10 +241,12 @@ class BitstampRequestDataSpot(BitstampRequestData):
         return path, params, extra_data
 
     def get_depth(self, symbol, limit=100, extra_data=None, **kwargs) -> Any:
+        """get_depth method"""
         path, params, extra_data = self._get_depth(symbol, limit, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_depth(self, symbol, limit=100, extra_data=None, **kwargs):
+        """async_get_depth method"""
         path, params, extra_data = self._get_depth(symbol, limit, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),

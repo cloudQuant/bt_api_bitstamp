@@ -1,10 +1,13 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from bt_api_base.containers.exchanges.exchange_data import ExchangeData
 
 
 class BitstampExchangeData(ExchangeData):
+    """Class BitstampExchangeData"""
     def __init__(self) -> None:
+        """__init__ method"""
         super().__init__()
         self.exchange_name = "BITSTAMP___SPOT"
         self.rest_url = "https://www.bitstamp.net/api/v2"
@@ -53,17 +56,21 @@ class BitstampExchangeData(ExchangeData):
         self.timezone = "UTC"
 
     def get_symbol(self, symbol: str) -> str:
+        """get_symbol method"""
         return symbol.replace("/", "").replace("-", "").replace("_", "").lower()
 
     def get_period(self, key: str) -> str:
+        """get_period method"""
         return self.kline_periods.get(key, key)
 
     def get_rest_path(self, key: str, **kwargs) -> str:
+        """get_rest_path method"""
         if key not in self.rest_paths or self.rest_paths[key] == "":
             raise ValueError(f"[{self.exchange_name}] REST path not found: {key}")
         return self.rest_paths[key]
 
     def get_wss_path(self, channel: str, symbol: str | None = None, **kwargs) -> str:
+        """get_wss_path method"""
         tpl = self.wss_paths.get(channel, "")
         if symbol and tpl:
             pair = self.get_symbol(symbol)
@@ -71,25 +78,32 @@ class BitstampExchangeData(ExchangeData):
         return tpl
 
     def get_symbol_path(self, symbol: str) -> str:
+        """get_symbol_path method"""
         return self.get_symbol(symbol)
 
     def get_instrument_name(self, symbol: str) -> str:
+        """get_instrument_name method"""
         return self.get_symbol(symbol)
 
     def get_symbol_from_instrument(self, instrument_name: str) -> str:
+        """get_symbol_from_instrument method"""
         return instrument_name.upper()
 
     def validate_symbol(self, symbol: str) -> bool:
+        """validate_symbol method"""
         if not symbol:
             return False
         return True
 
     def get_depth_levels(self, depth: int = 50) -> int:
+        """get_depth_levels method"""
         return min(max(1, depth), 100)
 
     def get_kline_period(self, period: str) -> str:
+        """get_kline_period method"""
         return self.kline_periods.get(period, period)
 
     def get_period_from_kline(self, kline_period: str) -> str:
+        """get_period_from_kline method"""
         reverse_map = {v: k for k, v in self.kline_periods.items()}
         return reverse_map.get(kline_period, kline_period)
